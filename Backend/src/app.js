@@ -1,31 +1,18 @@
-const express = require("express");
-const cors = require("cors");
-const aiRoutes = require("./routes/ai.routes");
+const express = require('express');
+const aiRoutes = require('./routes/ai.routes')
+const cors = require('cors')
 
-const app = express();
+const app = express()
 
-// Middlewares
-app.use(cors());
-app.use(express.json());
+app.use(cors())
 
-// Test Route
-app.post("/ai", (req, res) => {
-  res.status(200).json({
-    success: true,
-    message: "Hello World",
-  });
-});
 
-// Main AI Route
-app.use("/ai/get-review", aiRoutes);
+app.use(express.json())
 
-// 404 Route Not Found
-app.use((req, res) => {
-  res.status(404).json({
-    success: false,
-    message: "Route Not Found",
-    path: req.originalUrl,
-  });
-});
+app.get('/', (req, res) => {
+    res.send('Hello World')
+})
 
-module.exports = app;
+app.use('/ai', aiRoutes)
+
+module.exports = app
